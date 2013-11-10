@@ -7,4 +7,6 @@ int main(){
     cout<<BSobj.GetCDF(0)<<endl;
     cout<<BSobj.Bcall()<<endl;
     cout<<BSobj.Bput()<<endl;
+    cout<<BSobj.Bcallnorm()<<endl;
+    cout<<BSobj.Bputnorm()<<endl;
 }

@@ -12,8 +12,11 @@ class BSMODEL{
     public:
         BSMODEL(double Ta,double Ka, double Fa,double Sigmaa):T(Ta),K(Ka),F(Fa),Sigma(Sigmaa){}
         double GetCDF(double x) const;
+        double Getpdf(double x) const;
         double Bcall();
         double Bput();
+        double Bcallnorm();
+        double Bputnorm();
 };
 
 
