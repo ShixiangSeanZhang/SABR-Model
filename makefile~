@@ -10,11 +10,9 @@ BSModel.o:BSModel.cpp BSModel.h
 BSpline.o:BSpline.cpp BSpline.h
 	g++ -Wall -c -std=c++0x BSpline.cpp -o BSpline.o
 
-Swaption.o:Swaption.cpp Swaption.h BSModel.h
+Swaption.o:Swaption.cpp Swaption.h
 	g++ -Wall -c -std=c++0x Swaption.cpp -o Swaption.o
 
 clean:
 	rm -rf *o SABRModel
-
-
        

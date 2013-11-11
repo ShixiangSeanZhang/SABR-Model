@@ -17,7 +17,7 @@ class SABR{
         SABR(){};
 
     public:
-        SABR(double F0a, double Ka, double Ta, double Sigmaa, double Alphaa, double Betaa, double Rhoa):
+        SABR(double F0a, double Ka,double Ta, double Sigmaa, double Alphaa, double Betaa, double Rhoa):
             F0(F0a),K(Ka),T(Ta),Sigma(Sigmaa),Alpha(Alphaa),Beta(Betaa),Rho(Rhoa),epsilon(Alphaa*Alphaa*Ta),Fmid(sqrt(F0*K)){}
         double C(double x) const;
         double C1(double x) const;
