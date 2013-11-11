@@ -17,6 +17,8 @@ class BSMODEL{
         double Bput();
         double Bcallnorm();
         double Bputnorm();
+        double ForSigmaLNtoN(double x);
+        double SecantSigmaLNtoN();
 };
 
 

@@ -22,6 +22,7 @@ int main(){
     cout<<BSobj.Bput()<<endl;
     cout<<BSobj.Bcallnorm()<<endl;
     cout<<BSobj.Bputnorm()<<endl;
+    cout<<"Secant"<<BSobj.SecantSigmaLNtoN()<<endl;
     //F0,K,T,Sigma,Alpha,Beta,Rho
     SABR SABRobj(0.02,0.02,0.25,0.02,0.004,0.5,0.2);
     cout<<"SABR"<<endl;

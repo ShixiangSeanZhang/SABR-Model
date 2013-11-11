@@ -18,7 +18,6 @@ double *BSpline::resultf = NULL;
 double *BSpline::resultl = NULL;
 double *BSpline::resultOIS = NULL;
 
-
 /*
 BSpline::~BSpline(){
 delete knot;
@@ -68,7 +67,7 @@ double BSpline::BF(int k, int d, double t){
 
 double BSpline::BF_integrate(int k, int d, double t){
 	double sum = 0.0;
-	for (int i = k; i < BSpline::N - d - 4; i++){
+	for (int i = k; i < BSpline::N - d - 4; i++){ 
 		double temp = this->BF(i,d+1,t);
 		sum += (BSpline::knot[k+d+4] - BSpline::knot[k+3]) / (d+1.0) * temp;
 	}
@@ -172,7 +171,7 @@ double BSpline::SwapRate(double t1, double t2, double f[], double l[]){
 	//Accrual at the end, last payment
 	if ((t2-t1)/0.25 != floor((t2-t1)/0.25)){
 	Sum1 += this->LiborForward(t1 + numfloatcashflow * 0.25, t1 + (numfloatcashflow + 1) * 0.25, l) * this->DF(t1, t1 + (numfloatcashflow + 1) * 0.25, l) * (t2 - (t1 + numfloatcashflow * 0.25));
-	Sum2 += this->DF(t1, t2, f) * (t2 - (t1 + 0.5 * numfixedcashflow));
+	Sum2 += this->DF(t1, t2, f) * (t2 - (t1 + 0.5 * numfixedcashflow)); 
 	//cout << setprecision(12) << Sum2 << endl;
 	}
 	*/
@@ -254,7 +253,7 @@ double BSpline::LiborSwapValue(double t1, double t2, double rate, double f[], do
 	//Accrual at the end, last payment
 	if ((t2-t1)/0.25 != floor((t2-t1)/0.25)){
 	Sum1 += this->LiborForward(t1 + numfloatcashflow * 0.25, t1 + (numfloatcashflow + 1) * 0.25, l) * this->DF(t1, t1 + (numfloatcashflow + 1) * 0.25, l) * (t2 - (t1 + numfloatcashflow * 0.25));
-	Sum2 += this->DF(t1, t2, f) * (t2 - (t1 + 0.5 * numfixedcashflow));
+	Sum2 += this->DF(t1, t2, f) * (t2 - (t1 + 0.5 * numfixedcashflow)); 
 	//cout << setprecision(12) << Sum2 << endl;
 	}
 	*/
