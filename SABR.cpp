@@ -1,8 +1,8 @@
 #include"SABR.h"
 #include"BSModel.h"
 #include<math.h>
-
 using namespace std;
+using namespace boost::numeric::ublas;
 
 double SABR::C(double x) const{
     return pow(x,Beta);
@@ -37,4 +37,18 @@ double SABR::ImpCallPricen(double impvol){
 double SABR::ImpPutPricen(double impvol){
     BSMODEL bsobj(T,K,F0,impvol);
     return bsobj.Bputnorm();
+}
+
+matrix<double> SABRNormalVolCube(double Sigma,double Alpha, double Beta, double Rho,
+        double maturity[],double Strike[],double ForwardSwapRate[]){
+    int m = sizeof(maturity)/sizeof(double);
+    int n = sizeof(Strike)/sizeof(double);
+    matrix<double> result(m,n);
+    for(int i=0;i++;i<m){
+        for(int j=0;j++;j<n){
+            SABR sabrobj(ForwardSwapRate[i],ForwardSwapRate[i]+Strike[j],maturity[i],Sigma,Alpha,Beta,Rho);
+            result(i,j)=sabrobj.Impvolnormal();
+        }
+    }
+    return result;
 }

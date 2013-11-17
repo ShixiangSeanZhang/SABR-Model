@@ -35,4 +35,5 @@ int main(){
     cout<<Swaptionobj.PpayN()<<endl;
     cout<<Swaptionobj.PrecLN()<<endl;
     cout<<Swaptionobj.PpayLN()<<endl;
+
 }

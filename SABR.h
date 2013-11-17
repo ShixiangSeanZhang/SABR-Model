@@ -1,7 +1,8 @@
 #ifndef SABR_H
 #define SABR_H
 #include<math.h>
-
+#include<boost/numeric/ublas/io.hpp>
+#include<boost/numeric/ublas/matrix.hpp>
 
 class SABR{
     private:
@@ -28,5 +29,9 @@ class SABR{
 
 
 };
+
+boost::numeric::ublas::matrix<double> SABRNormalVolCube(double Sigma, double Alpha, double Beta, double Rho,
+        double maturity[],double Strike[],double ForwardSwapRate[]);
+
 
 #endif
