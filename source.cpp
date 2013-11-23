@@ -328,6 +328,33 @@ double ImpvolnormalToExcel(MyMatrix &SABRParam){
 	return sabrobj.Impvolnormal();
 }
 
+double SABRMCcallpriceToExcel(MyMatrix &SABRParam,int m,int n){
+	double F0_ = SABRParam(0,0);
+	double K_ = SABRParam(1,0);
+	double T_ = SABRParam(2,0);
+	double sigma0_ = SABRParam(3,0);
+	double volvol_ = SABRParam(4,0);
+	double beta_ = SABRParam(5,0);
+	double rho_ = SABRParam(6,0);
+	int m_=m;
+	int n_=n;
+	SABR sabrobj(F0_, K_, T_, sigma0_, volvol_, beta_, rho_,m_,n_);
+	return sabrobj.SABRMCcallprice();
+}
+
+double SABRMCputpriceToExcel(MyMatrix &SABRParam,int m,int n){
+	double F0_ = SABRParam(0,0);
+	double K_ = SABRParam(1,0);
+	double T_ = SABRParam(2,0);
+	double sigma0_ = SABRParam(3,0);
+	double volvol_ = SABRParam(4,0);
+	double beta_ = SABRParam(5,0);
+	double rho_ = SABRParam(6,0);
+	int m_=m;
+	int n_=n;
+	SABR sabrobj(F0_, K_, T_, sigma0_, volvol_, beta_, rho_,m_,n_);
+	return sabrobj.SABRMCputprice();
+}
 
 //Swaption Model
 //Swaption(double T0_, double T_, double K_, double Sigma_);
@@ -374,4 +401,31 @@ double PpayLNToExcel(MyMatrix& SwaptionParams){
 	double Sigma_ = SwaptionParams(3,0);
 	SWAPTION swtobj(T0_, T_, K_, Sigma_);
 	return swtobj.PpayLN();
+}
+
+MyMatrix SABRNormalVolCubeToExcel(double Sigma,double Alpha, double Beta, double Rho, MyMatrix &maturity,MyMatrix &Strike,MyMatrix &ForwardSwapRate){
+	using namespace boost::numeric::ublas;
+	int m=maturity.size1();
+	int n=Strike.size2();
+	MyMatrix result(m,n);
+	double* Strikeptr=new double[n];
+	double* maturityptr=new double[m];
+	double* Fsrptr=new double[m];
+	for(int i=0;i<n;i++){
+		Strikeptr[i]=Strike(0,i);
+	}
+	for(int i=0;i<m;i++){
+		maturityptr[i]=maturity(i,0);
+	}
+	for(int i=0;i<m;i++){
+		Fsrptr[i]=ForwardSwapRate(i,0);
+	}
+	matrix<double> ublasresult(m,n);
+	ublasresult=SABRNormalVolCube(Sigma, Alpha, Beta, Rho, maturityptr,Strikeptr,Fsrptr,m,n);
+	for(int i=0;i<m;i++){
+		for(int j=0;j<n;j++){
+			result(i,j)=ublasresult(i,j);
+		}
+	}
+	return result;
 }

@@ -3,6 +3,8 @@
 #include"SABR.h"
 #include"BSpline.h"
 #include"Swaption.h"
+#include"BoxMullerGenerator.hpp"
+#include<climits>
 using namespace std;
 
 extern BSpline* bs=new BSpline[1];//no construct so new
@@ -17,23 +19,35 @@ int main(){
     BSpline::resultf=constf;
     BSpline::resultl=constl;
     BSMODEL BSobj(1.0,1.0,1.0,0.2);
-    cout<<BSobj.GetCDF(0)<<endl;
-    cout<<BSobj.Bcall()<<endl;
-    cout<<BSobj.Bput()<<endl;
-    cout<<BSobj.Bcallnorm()<<endl;
-    cout<<BSobj.Bputnorm()<<endl;
-    cout<<"Secant"<<BSobj.SecantSigmaLNtoN()<<endl;
+    //cout<<BSobj.GetCDF(0)<<endl;
+    //cout<<BSobj.Bcall()<<endl;
+    //cout<<BSobj.Bput()<<endl;
+    //cout<<BSobj.Bcallnorm()<<endl;
+    //cout<<BSobj.Bputnorm()<<endl;
+    //cout<<"Secant"<<BSobj.SecantSigmaLNtoN()<<endl;
     //F0,K,T,Sigma,Alpha,Beta,Rho
-    SABR SABRobj(0.02,0.02,0.25,0.02,0.004,0.5,0.2);
-    cout<<"SABR"<<endl;
-    cout<<SABRobj.Impvolnormal()<<endl;
-    cout<<SABRobj.ImpPutPricen(SABRobj.Impvolnormal())<<endl;
-    cout<<SABRobj.ImpCallPricen(SABRobj.Impvolnormal())<<endl;
-    SWAPTION Swaptionobj(0.25,1.25,0.03,0.003);
-    cout<<Swaptionobj.A(0.17)<<endl;
-    cout<<Swaptionobj.PrecN()<<endl;
-    cout<<Swaptionobj.PpayN()<<endl;
-    cout<<Swaptionobj.PrecLN()<<endl;
-    cout<<Swaptionobj.PpayLN()<<endl;
-
+    //SABR SABRobj(0.02,0.02,0.25,0.02,0.004,0.5,0.2);
+    //cout<<"SABR"<<endl;
+    //cout<<SABRobj.Impvolnormal()<<endl;
+    //cout<<SABRobj.ImpPutPricen(SABRobj.Impvolnormal())<<endl;
+    //cout<<SABRobj.ImpCallPricen(SABRobj.Impvolnormal())<<endl;
+    //SWAPTION Swaptionobj(0.25,1.25,0.03,0.003);
+    //cout<<Swaptionobj.A(0.17)<<endl;
+    //cout<<Swaptionobj.PrecN()<<endl;
+    //cout<<Swaptionobj.PpayN()<<endl;
+    //cout<<Swaptionobj.PrecLN()<<endl;
+    //cout<<Swaptionobj.PpayLN()<<endl;
+    double maturity[] = {0.25, 0.5,1.0, 2.0, 3.0, 5.0};
+    double Strike[] = {-0.025, -0.02, -0.015, -0.01, -0.005, -0.0025, 0.0, 0.0025, 0.005, 0.01, 0.015, 0.02, 0.025};
+    double ForwardSwapRates[] = {0.03510, 0.03632, .03872, 0.04313, 0.04657, 0.05030};
+    boost::numeric::ublas::matrix<double> cuberesult(6,13);
+    cuberesult=SABRNormalVolCube(0.02,0.004,0.5,0.2,maturity,Strike,ForwardSwapRates,2,3);
+	const int m=10000;
+	const int n=500;
+	SABR SABRobj2(0.02,0.03,2,0.0707,0.5,0.5,0.3,m,n);
+	BSMODEL BSobj2(0.02,0.03,2,SABRobj2.Impvolnormal());
+	cout<<SABRobj2.SABRMCcallprice()<<endl;
+	//cout<<SABRobj2.ImpCallPricen(SABRobj2.Impvolnormal())<<endl;
+	cout<<BSobj2.Bcallnorm()<<endl;
+	system("Pause");
 }

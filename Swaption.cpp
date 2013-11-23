@@ -10,7 +10,7 @@ SWAPTION::SWAPTION(double T0a, double Ta, double Ka, double Sigmaa):
 
 
 double SWAPTION::A(double Tval){
-    int n=int(round(T-T0)/0.25);
+    int n=int((T-T0)/0.25);
     double result=0.0;
     for(int i=0;i<n;i++){
         double df=bs->DF(Tval,T0+(i+1)*0.25);

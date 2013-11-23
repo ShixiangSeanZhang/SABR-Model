@@ -142,7 +142,10 @@ double SecantSigmaLNtoNToExcel(MyMatrix &BlackParams);
 double ImpCallPricenToExcel(MyMatrix &SABRParam,double impvol);
 double ImpPutPricenToExcel(MyMatrix &SABRParam,double impvol);
 double ImpvolnormalToExcel(MyMatrix &SABRParam);
-
+double SABRMCcallpriceToExcel(MyMatrix &SABRParam,int m,int n);
+double SABRMCputpriceToExcel(MyMatrix &SABRParam,int m,int n);
+MyMatrix SABRNormalVolCubeToExcel(double Sigma, double Alpha, double Beta, double Rho,
+        MyMatrix &maturity,MyMatrix &Strike,MyMatrix &ForwardSwapRate);
 
 //Swaption Model
 //Swaption(double T0_, double T_, double K_, double Sigma_);
